@@ -120,7 +120,7 @@
     #navbar.scrolled { box-shadow: var(--shadow-md); }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
+      height: 82px;
     }
 
     /* Logo SVG */
@@ -131,7 +131,7 @@
     .logo-image {
       display: block;
       width: auto;
-      height: 38px;
+      height: 54px;
       flex-shrink: 0;
     }
 
@@ -541,7 +541,7 @@
     .footer-logo-image {
       display: block;
       width: auto;
-      height: 24px;
+      height: 34px;
     }
     .footer-location { font-size: 12px; }
     .footer-links {
@@ -592,6 +592,8 @@
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
+      .nav-inner { height: 74px; }
+      .logo-image { height: 46px; }
 
       #hero { padding: 120px 0 80px; }
       .hero-ctas { flex-direction: column; align-items: stretch; }
@@ -610,6 +612,8 @@
     }
 
     @media (max-width: 480px) {
+      .logo-image { height: 42px; }
+      .footer-logo-image { height: 30px; }
       .pricing-card { padding: 32px 24px; }
       .step-card { padding: 32px 24px; }
     }
