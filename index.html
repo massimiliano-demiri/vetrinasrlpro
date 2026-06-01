@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vetrina.pro — Siti web per attività locali italiane</title>
+  <meta name="description" content="Vetrina.pro progetta e gestisce siti web professionali per attività locali italiane. Design su misura, online in 24 ore, a partire da 15€/mese." />
+  <meta property="og:title" content="Vetrina.pro — Siti web per attività locali italiane" />
+  <meta property="og:description" content="Vetrina.pro progetta e gestisce siti web professionali per attività locali italiane. Design su misura, online in 24 ore, a partire da 15€/mese." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vetrina.pro" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Schema.org Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vetrina.pro",
+    "url": "https://vetrina.pro",
+    "description": "Progettiamo e gestiamo siti web professionali per attività locali italiane. Online in 24 ore, senza complicazioni.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Strada Santa Filomena 1",
+      "addressLocality": "Terni",
+      "addressCountry": "IT"
+    },
+    "email": "massimilianodemiridev@proton.me"
+  }
+  </script>
+
+  <!-- Google Fonts: Inter + Instrument Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #FFFFFF;
+      --black: #0A0A0A;
+      --blue: #2563EB;
+      --blue-dark: #1d4ed8;
+      --blue-light: #EFF6FF;
+      --gray: #F8F8F8;
+      --gray-mid: #E5E7EB;
+      --text-muted: #6B7280;
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.10);
+      --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: 'Instrument Serif', serif; line-height: 1.15; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ============================================
+       UTILITY
+    ============================================ */
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: var(--radius);
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; border: 2px solid transparent;
+      transition: all var(--transition); white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--blue); color: var(--white);
+      border-color: var(--blue);
+    }
+    .btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
+    .btn-outline {
+      background: transparent; color: var(--black);
+      border-color: var(--gray-mid);
+    }
+    .btn-outline:hover { border-color: var(--black); transform: translateY(-1px); }
+    .btn-white {
+      background: var(--white); color: var(--blue);
+      border-color: var(--white);
+    }
+    .btn-white:hover { background: var(--blue-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,255,255,0.3); }
+
+    /* Fade-in animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow var(--transition);
+    }
+    #navbar.scrolled { box-shadow: var(--shadow-md); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+
+    /* Logo SVG */
+    .logo {
+      display: flex; align-items: center; gap: 0;
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px; font-weight: 400;
+      letter-spacing: -0.5px;
+      color: var(--black);
+    }
+    .logo-svg { width: 36px; height: 36px; margin-right: 10px; flex-shrink: 0; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 36px;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-cta { display: flex; align-items: center; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px; background: var(--black);
+      border-radius: 2px; transition: all var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 0;
+      border-top: 1px solid var(--gray-mid);
+      padding: 16px 24px 24px;
+      background: var(--white);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 14px 0; font-size: 16px; font-weight: 500;
+      color: var(--black); border-bottom: 1px solid var(--gray-mid);
+    }
+    .mobile-menu .btn { margin-top: 16px; justify-content: center; }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    #hero {
+      padding: 160px 0 100px;
+      background: var(--white);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+      padding: 6px 14px; border-radius: 999px;
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow::before { content: "●"; font-size: 8px; }
+    .hero-headline {
+      font-size: clamp(48px, 8vw, 96px);
+      font-family: 'Instrument Serif', serif;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--black);
+      margin-bottom: 28px;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--blue);
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 44px;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap; margin-bottom: 36px;
+    }
+    .hero-trust {
+      display: flex; align-items: center; justify-content: center;
+      gap: 24px; flex-wrap: wrap;
+      font-size: 13px; font-weight: 500; color: var(--text-muted);
+    }
+    .hero-trust span { display: flex; align-items: center; gap: 6px; }
+    .hero-trust span::before { content: "✓"; color: var(--blue); font-weight: 700; }
+
+    /* ============================================
+       COME FUNZIONA
+    ============================================ */
+    #come-funziona {
+      padding: 100px 0;
+      background: var(--gray);
+    }
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px; color: var(--text-muted); max-width: 480px;
+    }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px; margin-top: 64px;
+    }
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .step-number {
+      position: absolute; top: -10px; right: 20px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 120px; color: rgba(37,99,235,0.05);
+      line-height: 1; user-select: none; pointer-events: none;
+    }
+    .step-icon {
+      width: 52px; height: 52px; background: var(--blue-light);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; color: var(--blue);
+    }
+    .step-icon svg { width: 24px; height: 24px; stroke-width: 1.75; }
+    .step-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px; margin-bottom: 10px;
+    }
+    .step-desc { font-size: 15px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ============================================
+       ESEMPI / SOCIAL PROOF
+    ============================================ */
+    #esempi { padding: 100px 0; background: var(--white); }
+    .demo-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; margin-top: 64px;
+    }
+    .demo-card {
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--gray-mid);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .demo-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+    .browser-chrome {
+      background: #F1F5F9;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--gray-mid);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .browser-dots { display: flex; gap: 5px; }
+    .browser-dots span {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .browser-dots span:nth-child(1) { background: #FC605B; }
+    .browser-dots span:nth-child(2) { background: #FDBC40; }
+    .browser-dots span:nth-child(3) { background: #34C749; }
+    .browser-url {
+      flex: 1; background: var(--white); border-radius: 6px;
+      padding: 5px 10px; font-size: 11px; font-family: 'Inter', sans-serif;
+      color: var(--text-muted); border: 1px solid var(--gray-mid);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .browser-url-lock { color: #34C749; flex-shrink: 0; }
+    .browser-url-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .demo-preview {
+      height: 200px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .demo-preview-restaurant { background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%); }
+    .demo-preview-plumber { background: linear-gradient(135deg, #EFF6FF 0%, #BFDBFE 100%); }
+    .demo-preview-barber { background: linear-gradient(135deg, #F0FDF4 0%, #BBF7D0 100%); }
+    .demo-preview-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(4px);
+    }
+    .demo-preview-icon svg { width: 28px; height: 28px; stroke-width: 1.6; }
+    .demo-preview-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px; color: var(--black); font-weight: 400;
+    }
+    .demo-preview-city { font-size: 12px; color: var(--text-muted); }
+    .demo-info {
+      padding: 20px;
+    }
+    .demo-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .demo-business-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px;
+    }
+    .demo-stars { font-size: 13px; color: #F59E0B; }
+    .demo-stars span { color: var(--text-muted); font-size: 12px; margin-left: 3px; }
+    .demo-cat {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--blue);
+      background: var(--blue-light); padding: 3px 10px;
+      border-radius: 999px; margin-bottom: 16px; display: inline-block;
+    }
+    .demo-btn {
+      width: 100%; padding: 11px; border-radius: 8px;
+      background: var(--black); color: var(--white);
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      border: none; font-family: 'Inter', sans-serif;
+      transition: background var(--transition);
+    }
+    .demo-btn:hover { background: var(--blue); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white); border-radius: 16px;
+      padding: 40px; max-width: 480px; width: 90%;
+      text-align: center; position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; cursor: pointer;
+      font-size: 20px; color: var(--text-muted);
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
+    }
+    .modal-close:hover { background: var(--gray); }
+    .modal-icon { font-size: 48px; margin-bottom: 16px; }
+    .modal-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 26px; margin-bottom: 10px;
+    }
+    .modal-desc { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ============================================
+       PRICING
+    ============================================ */
+    #prezzi {
+      padding: 100px 0;
+      background: var(--gray);
+    }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 28px; max-width: 800px; margin: 64px auto 0;
+    }
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      box-shadow: var(--shadow);
+      position: relative;
+      border: 2px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .pricing-card.featured {
+      border-color: var(--blue);
+      box-shadow: 0 8px 40px rgba(37,99,235,0.15);
+    }
+    .pricing-badge {
+      position: absolute; top: -14px; right: 24px;
+      background: var(--blue); color: var(--white);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 5px 14px; border-radius: 999px;
+    }
+    .pricing-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .pricing-price {
+      font-family: 'Instrument Serif', serif;
+      font-size: 56px; line-height: 1; margin-bottom: 4px;
+    }
+    .pricing-price span { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 400; color: var(--text-muted); }
+    .pricing-desc {
+      font-size: 14px; color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .pricing-features {
+      margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .pricing-features li {
+      font-size: 14px; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .pricing-features li::before {
+      content: "✓"; color: var(--blue); font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .pricing-card .btn { width: 100%; justify-content: center; }
+
+    /* ============================================
+       FAQ
+    ============================================ */
+    #faq { padding: 100px 0; background: var(--white); }
+    .faq-list { max-width: 720px; margin: 64px auto 0; }
+    .faq-item {
+      border-bottom: 1px solid var(--gray-mid);
+    }
+    .faq-question {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; text-align: left;
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+      color: var(--black); gap: 16px;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--blue); }
+    .faq-icon {
+      flex-shrink: 0; width: 28px; height: 28px;
+      background: var(--gray); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--blue-light); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.35s;
+      font-size: 15px; color: var(--text-muted); line-height: 1.7;
+      padding: 0;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding: 0 0 22px; }
+
+    /* ============================================
+       CONTATTI / CTA FINALE
+    ============================================ */
+    #contatti {
+      padding: 100px 0;
+      background: var(--blue);
+      color: var(--white);
+    }
+    .contatti-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+    .contatti-inner .section-label { color: rgba(255,255,255,0.6); }
+    .contatti-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px;
+    }
+    .contatti-sub {
+      font-size: 17px; color: rgba(255,255,255,0.8);
+      margin-bottom: 44px; line-height: 1.7;
+    }
+    .contact-form {
+      display: flex; flex-direction: column; gap: 14px;
+      text-align: left;
+    }
+    .form-input {
+      width: 100%; padding: 15px 18px;
+      border-radius: var(--radius); border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: var(--white); font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color var(--transition), background var(--transition);
+      outline: none;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.5); }
+    .form-input:focus { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.15); }
+    .form-disclaimer {
+      font-size: 13px; color: rgba(255,255,255,0.55);
+      text-align: center; margin-top: 8px;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.5);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .footer-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px; color: var(--white);
+    }
+    .footer-location { font-size: 12px; }
+    .footer-links {
+      display: flex; gap: 28px;
+    }
+    .footer-links a {
+      font-size: 13px; transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 12px; text-align: right; line-height: 1.6; }
+
+    /* ============================================
+       WHATSAPP FLOATING BUTTON
+    ============================================ */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 62px; height: 62px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(37,211,102,0.5);
+      cursor: pointer; text-decoration: none;
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: wa-pulse 2.5s infinite;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.7);
+      animation: none;
+    }
+    .whatsapp-float svg { width: 34px; height: 34px; }
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 8px 48px rgba(37,211,102,0.8), 0 0 0 8px rgba(37,211,102,0.1); }
+    }
+    .whatsapp-tooltip {
+      position: absolute; right: 74px; top: 50%; transform: translateY(-50%);
+      background: var(--black); color: var(--white);
+      font-size: 13px; font-weight: 500; padding: 8px 14px;
+      border-radius: 8px; white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      #hero { padding: 120px 0 80px; }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas .btn { justify-content: center; }
+      .hero-trust { flex-direction: column; gap: 10px; }
+
+      .steps-grid { grid-template-columns: 1fr; gap: 20px; }
+      .demo-grid { grid-template-columns: 1fr; gap: 20px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-copy { text-align: left; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+
+      .whatsapp-float { bottom: 20px; right: 20px; width: 56px; height: 56px; }
+    }
+
+    @media (max-width: 480px) {
+      .pricing-card { padding: 32px 24px; }
+      .step-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+  ============================================ -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <svg class="logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="10" fill="#0A0A0A"/>
+          <!-- Window/vitrine shape -->
+          <rect x="7" y="8" width="22" height="16" rx="3" stroke="white" stroke-width="1.8" fill="none"/>
+          <line x1="7" y1="13" x2="29" y2="13" stroke="white" stroke-width="1.8"/>
+          <circle cx="9.5" cy="10.5" r="1" fill="#FC605B"/>
+          <circle cx="13" cy="10.5" r="1" fill="#FDBC40"/>
+          <circle cx="16.5" cy="10.5" r="1" fill="#34C749"/>
+          <!-- Shine/star on display -->
+          <path d="M18 16.5 L18.6 18.2 L20.4 18.2 L19 19.2 L19.5 21 L18 20 L16.5 21 L17 19.2 L15.6 18.2 L17.4 18.2 Z" fill="#2563EB"/>
+          <!-- Dot below window -->
+          <circle cx="18" cy="28" r="2.2" fill="#2563EB"/>
+        </svg>
+        Vetrina<span style="color:#2563EB">.</span>pro
+      </a>
+
+      <!-- Desktop Nav -->
+      <ul class="nav-links" role="list">
+        <li><a href="#come-funziona">Come funziona</a></li>
+        <li><a href="#prezzi">Prezzi</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="#contatti" class="btn btn-primary" style="padding:11px 22px; font-size:14px;">Inizia ora</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu" role="navigation">
+      <a href="#come-funziona">Come funziona</a>
+      <a href="#prezzi">Prezzi</a>
+      <a href="#contatti" class="btn btn-primary">Inizia ora</a>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       HERO
+  ============================================ -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-eyebrow fade-up">Agenzia web per attività locali italiane</div>
+      <h1 class="hero-headline fade-up delay-1">
+        Il tuo sito web<br><em>fatto bene.</em>
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        Progettiamo siti web su misura per le attività locali italiane — veloci, professionali, e gestiti da noi dall'inizio alla fine. Nessuna complicazione tecnica.
+      </p>
+      <div class="hero-ctas fade-up delay-3">
+        <a href="#contatti" class="btn btn-primary">
+          <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+          Inizia subito
+        </a>
+        <a href="#esempi" class="btn btn-outline">
+          Vedi un esempio
+        </a>
+      </div>
+      <div class="hero-trust fade-up delay-3">
+        <span>Nessun costo di attivazione</span>
+        <span>Online in 24 ore</span>
+        <span>Disdici quando vuoi</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       COME FUNZIONA
+  ============================================ -->
+  <section id="come-funziona">
+    <div class="container">
+      <div class="fade-up">
+        <p class="section-label">Il processo</p>
+        <h2 class="section-title">Tre passi. Zero stress.</h2>
+        <p class="section-sub">Dal niente a online in meno di 24 ore, senza toccare una riga di codice.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card fade-up delay-1">
+          <span class="step-number">01</span>
+          <div class="step-icon"><i data-lucide="map-pin"></i></div>
+          <h3 class="step-title">Troviamo la tua attività</h3>
+          <p class="step-desc">Scansioniamo Google Maps e identifichiamo le attività locali senza sito web. Se sei tra loro, ti contatteremo.</p>
+        </div>
+        <div class="step-card fade-up delay-2">
+          <span class="step-number">02</span>
+          <div class="step-icon"><i data-lucide="layout-template"></i></div>
+          <h3 class="step-title">Costruiamo il tuo sito</h3>
+          <p class="step-desc">In automatico, generiamo un sito professionale con i tuoi dati, la tua palette, il tuo stile. Nessun template generico.</p>
+        </div>
+        <div class="step-card fade-up delay-3">
+          <span class="step-number">03</span>
+          <div class="step-icon"><i data-lucide="mouse-pointer-click"></i></div>
+          <h3 class="step-title">Tu lo attivi con un click</h3>
+          <p class="step-desc">Ricevi il sito via email per approvazione. Una volta confermato, vai live in meno di 24 ore. Zero rischi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ESEMPI / SOCIAL PROOF
+  ============================================ -->
+  <section id="esempi">
+    <div class="container">
+      <div class="fade-up" style="text-align:center;">
+        <p class="section-label">Esempi reali</p>
+        <h2 class="section-title">Siti che abbiamo già costruito.</h2>
+        <p class="section-sub" style="margin:0 auto;">Ogni attività ha il suo stile. Il tuo sito non sembrerà mai un template.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Card 1: Ristorante -->
+        <div class="demo-card fade-up delay-1">
+          <div class="browser-chrome">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url"><svg class="browser-url-lock" viewBox="0 0 12 12" fill="currentColor" style="width:9px;height:9px;"><path d="M9 5H8V3.5C8 1.567 6.433 0 4.5 0S1 1.567 1 3.5V5H0v7h9V5zM3 3.5C3 2.672 3.672 2 4.5 2S6 2.672 6 3.5V5H3V3.5z"/></svg><span class="browser-url-text">www.trattoriadamario.it</span></div>
+          </div>
+          <div class="demo-preview demo-preview-restaurant">
+            <div class="demo-preview-icon" style="color:#C2410C;"><i data-lucide="utensils"></i></div>
+            <div class="demo-preview-name">Trattoria da Mario</div>
+            <div class="demo-preview-city">Milano, Navigli</div>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-business-name">Trattoria da Mario</span>
+              <span class="demo-stars">⭐⭐⭐⭐⭐ <span>4.8</span></span>
+            </div>
+            <span class="demo-cat">Ristorante</span>
+            <button class="demo-btn" onclick="openModal()">Vedi demo →</button>
+          </div>
+        </div>
+
+        <!-- Card 2: Idraulico -->
+        <div class="demo-card fade-up delay-2">
+          <div class="browser-chrome">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url"><svg class="browser-url-lock" viewBox="0 0 12 12" fill="currentColor" style="width:9px;height:9px;"><path d="M9 5H8V3.5C8 1.567 6.433 0 4.5 0S1 1.567 1 3.5V5H0v7h9V5zM3 3.5C3 2.672 3.672 2 4.5 2S6 2.672 6 3.5V5H3V3.5z"/></svg><span class="browser-url-text">www.idraulicobianchi.com</span></div>
+          </div>
+          <div class="demo-preview demo-preview-plumber">
+            <div class="demo-preview-icon" style="color:#1D4ED8;"><i data-lucide="wrench"></i></div>
+            <div class="demo-preview-name">Idraulico Bianchi</div>
+            <div class="demo-preview-city">Milano, Zona 4</div>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-business-name">Idraulico Bianchi</span>
+              <span class="demo-stars">⭐⭐⭐⭐⭐ <span>4.9</span></span>
+            </div>
+            <span class="demo-cat">Idraulico</span>
+            <button class="demo-btn" onclick="openModal()">Vedi demo →</button>
+          </div>
+        </div>
+
+        <!-- Card 3: Barbiere -->
+        <div class="demo-card fade-up delay-3">
+          <div class="browser-chrome">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url"><svg class="browser-url-lock" viewBox="0 0 12 12" fill="currentColor" style="width:9px;height:9px;"><path d="M9 5H8V3.5C8 1.567 6.433 0 4.5 0S1 1.567 1 3.5V5H0v7h9V5zM3 3.5C3 2.672 3.672 2 4.5 2S6 2.672 6 3.5V5H3V3.5z"/></svg><span class="browser-url-text">www.barbershopnabil.it</span></div>
+          </div>
+          <div class="demo-preview demo-preview-barber">
+            <div class="demo-preview-icon" style="color:#166534;"><i data-lucide="scissors"></i></div>
+            <div class="demo-preview-name">Barbershop Nabil</div>
+            <div class="demo-preview-city">Milano, Porta Romana</div>
+          </div>
+          <div class="demo-info">
+            <div class="demo-meta">
+              <span class="demo-business-name">Barbershop Nabil</span>
+              <span class="demo-stars">⭐⭐⭐⭐⭐ <span>4.7</span></span>
+            </div>
+            <span class="demo-cat">Barbiere</span>
+            <button class="demo-btn" onclick="openModal()">Vedi demo →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Modal -->
+  <div class="modal-overlay" id="demo-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()" aria-label="Chiudi">✕</button>
+      <div class="modal-icon" style="display:flex;justify-content:center;"><span style="width:56px;height:56px;background:var(--blue-light);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--blue);"><i data-lucide="monitor-play" style="width:26px;height:26px;"></i></span></div>
+      <h3 class="modal-title">Demo in arrivo</h3>
+      <p class="modal-desc">
+        Le demo complete sono disponibili a breve.<br><br>
+        Nel frattempo, <strong>inserisci il nome della tua attività</strong> e ti contatteremo per costruire insieme il tuo sito professionale.
+      </p>
+      <a href="#contatti" class="btn btn-primary" style="margin-top:24px;width:100%;justify-content:center;" onclick="closeModal()">
+        Inizia il tuo progetto →
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================================
+       PRICING
+  ============================================ -->
+  <section id="prezzi">
+    <div class="container">
+      <div class="fade-up" style="text-align:center;">
+        <p class="section-label">Prezzi</p>
+        <h2 class="section-title">Semplice. Trasparente.</h2>
+        <p class="section-sub" style="margin:0 auto;">Nessuna sorpresa. Nessun costo nascosto. Solo il tuo sito, online.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Base -->
+        <div class="pricing-card fade-up delay-1">
+          <p class="pricing-name">Base</p>
+          <div class="pricing-price">15€ <span>/ mese</span></div>
+          <p class="pricing-desc">Per iniziare a essere trovati online subito.</p>
+          <ul class="pricing-features">
+            <li>Sito professionale su misura</li>
+            <li>Dominio incluso (.it o .com)</li>
+            <li>Hosting ultra-veloce incluso</li>
+            <li>Certificato SSL incluso</li>
+            <li>2 modifiche al mese via WhatsApp</li>
+            <li>Ottimizzazione SEO base</li>
+          </ul>
+          <a href="#contatti" class="btn btn-outline">Inizia gratis</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="pricing-card featured fade-up delay-2">
+          <span class="pricing-badge">Più scelto</span>
+          <p class="pricing-name">Pro</p>
+          <div class="pricing-price">29€ <span>/ mese</span></div>
+          <p class="pricing-desc">Per chi vuole crescere e farsi trovare davvero.</p>
+          <ul class="pricing-features">
+            <li>Tutto il piano Base</li>
+            <li>Google Business Profile ottimizzato</li>
+            <li>Modifiche illimitate via WhatsApp</li>
+            <li>Form di contatto e prenotazioni</li>
+            <li>Analytics e report mensile</li>
+            <li>Supporto prioritario entro 4 ore</li>
+          </ul>
+          <a href="#contatti" class="btn btn-primary">Inizia gratis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FAQ
+  ============================================ -->
+  <section id="faq">
+    <div class="container">
+      <div class="fade-up" style="text-align:center; max-width:600px; margin:0 auto;">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title">Domande frequenti.</h2>
+      </div>
+
+      <ul class="faq-list" role="list">
+        <li class="faq-item fade-up delay-1">
+          <button class="faq-question" aria-expanded="false">
+            Devo fare qualcosa tecnicamente?
+            <span class="faq-icon"><i data-lucide="plus" style="width:14px;height:14px;"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            No. Pensiamo a tutto noi: design, sviluppo, dominio, hosting, configurazione. Tu approvi il risultato finale e sei online.
+          </div>
+        </li>
+        <li class="faq-item fade-up delay-1">
+          <button class="faq-question" aria-expanded="false">
+            E se ho già un dominio?
+            <span class="faq-icon"><i data-lucide="plus" style="width:14px;height:14px;"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            Nessun problema. Lo colleghiamo noi al tuo sito senza costi aggiuntivi. Ci dai le credenziali del registrar e ci pensiamo noi.
+          </div>
+        </li>
+        <li class="faq-item fade-up delay-2">
+          <button class="faq-question" aria-expanded="false">
+            Posso modificare i contenuti?
+            <span class="faq-icon"><i data-lucide="plus" style="width:14px;height:14px;"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            Sì. Ci scrivi su WhatsApp con le modifiche e le pubblichiamo entro 48 ore. Niente pannelli complicati, niente tutorial.
+          </div>
+        </li>
+        <li class="faq-item fade-up delay-2">
+          <button class="faq-question" aria-expanded="false">
+            Quanto ci vuole per andare online?
+            <span class="faq-icon"><i data-lucide="plus" style="width:14px;height:14px;"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            Meno di 24 ore dalla conferma. Spesso molto meno. Il nostro processo è ottimizzato per essere rapido senza sacrificare la qualità.
+          </div>
+        </li>
+        <li class="faq-item fade-up delay-3">
+          <button class="faq-question" aria-expanded="false">
+            Come funziona la fattura?
+            <span class="faq-icon"><i data-lucide="plus" style="width:14px;height:14px;"></i></span>
+          </button>
+          <div class="faq-answer" role="region">
+            Emettiamo fattura regolare per ogni pagamento. Tutto tracciabile, tutto in regola. Ricevi il documento via email ogni mese.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CONTATTI / CTA FINALE
+  ============================================ -->
+  <section id="contatti">
+    <div class="container">
+      <div class="contatti-inner">
+        <p class="section-label fade-up">Prova gratuita</p>
+        <h2 class="contatti-title fade-up delay-1">
+          Parliamo del tuo<br>progetto.
+        </h2>
+        <p class="contatti-sub fade-up delay-2">
+          Raccontaci la tua attività. Ti ricontatteremo entro poche ore con una proposta concreta — senza impegno.
+        </p>
+
+        <!-- FORMSPREE: sostituisci YOUR_FORM_ID con il tuo ID da formspree.io -->
+        <form
+          class="contact-form fade-up delay-3"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+        >
+          <input
+            class="form-input"
+            type="text"
+            name="nome_attivita"
+            placeholder="es. Trattoria da Mario"
+            required
+            autocomplete="organization"
+          />
+          <input
+            class="form-input"
+            type="email"
+            name="email"
+            placeholder="La tua email"
+            required
+            autocomplete="email"
+          />
+          <input
+            class="form-input"
+            type="tel"
+            name="whatsapp"
+            placeholder="WhatsApp (opzionale)"
+            autocomplete="tel"
+          />
+          <button type="submit" class="btn btn-white" style="justify-content:center;">
+            Richiedi il tuo sito →
+          </button>
+        </form>
+
+        <p class="form-disclaimer fade-up delay-3">
+          Non riceverai spam. Solo una risposta concreta entro 24 ore.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">Vetrina<span style="color:#2563EB">.</span>pro</span>
+        <span class="footer-location">Strada Santa Filomena 1, Terni · massimilianodemiridev@proton.me</span>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#come-funziona">Come funziona</a>
+        <a href="#prezzi">Prezzi</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+      <div class="footer-copy">
+        © 2026 Vetrina.pro<br>
+        <a href="#" style="color:rgba(255,255,255,0.4); transition:color 0.3s;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       WHATSAPP FLOATING BUTTON
+  ============================================ -->
+  <a
+    href="https://wa.me/393290122917"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="whatsapp-float"
+    aria-label="Contattaci su WhatsApp"
+  >
+    <span class="whatsapp-tooltip">Scrivici su WhatsApp</span>
+    <!-- WhatsApp official SVG -->
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.954 4 4 12.954 4 24c0 3.552.934 6.888 2.573 9.773L4 44l10.515-2.527A19.908 19.908 0 0024 44c11.046 0 20-8.954 20-20S35.046 4 24 4zm0 3.636c9.037 0 16.364 7.327 16.364 16.364 0 9.037-7.327 16.364-16.364 16.364a16.32 16.32 0 01-8.327-2.272l-.597-.364-6.236 1.498 1.54-5.934-.397-.618A16.316 16.316 0 017.636 24C7.636 14.963 14.963 7.636 24 7.636zm-4.69 8.21c-.358-.001-.742.003-1.073.157-.358.162-.61.417-.866.68-.51.528-1.308 1.63-1.308 3.862 0 2.244 1.289 4.41 1.465 4.714.176.303 2.498 4.04 6.148 5.5 3.648 1.46 3.648.974 4.305.914.656-.061 2.116-.866 2.414-1.703.299-.838.299-1.556.21-1.705-.09-.148-.33-.238-.69-.417-.358-.179-2.116-1.044-2.444-1.163-.328-.12-.567-.18-.806.18-.24.358-.926 1.163-1.134 1.402-.208.238-.417.268-.775.09-.358-.18-1.513-.557-2.882-1.778-1.065-.95-1.784-2.12-1.993-2.478-.208-.358-.022-.551.156-.729.16-.16.358-.417.537-.626.178-.208.238-.358.358-.597.119-.238.06-.448-.03-.627-.09-.178-.806-1.94-1.104-2.657-.266-.654-.54-.663-.806-.672z" fill="white"/>
+    </svg>
+  </a>
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================ -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // ---- Navbar scroll effect ----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ---- Hamburger menu ----
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ---- Intersection Observer: fade-up ----
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ---- FAQ Accordion ----
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle clicked
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // ---- Demo Modal ----
+    const modal = document.getElementById('demo-modal');
+
+    function openModal() {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on overlay click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close modal on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ---- Form success feedback ----
+    const form = document.querySelector('.contact-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        btn.textContent = 'Invio in corso…';
+        btn.disabled = true;
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (response.ok) {
+            form.innerHTML = `
+              <div style="text-align:center;padding:32px 0;">
+                <div style="font-size:48px;margin-bottom:16px;">✅</div>
+                <h3 style="font-family:'Instrument Serif',serif;font-size:26px;color:white;margin-bottom:10px;">Ricevuto!</h3>
+                <p style="color:rgba(255,255,255,0.8);font-size:15px;">Ti ricontatteremo entro poche ore con una proposta su misura.</p>
+              </div>
+            `;
+          } else {
+            throw new Error('Errore invio');
+          }
+        } catch {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          alert('Qualcosa è andato storto. Prova a scriverci direttamente su WhatsApp.');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
+
+<!--
+  ============================================
+  VERCEL DEPLOYMENT
+  ============================================
+  Crea un file vercel.json nella stessa cartella con:
+
+  {
+    "rewrites": [
+      { "source": "/(.*)", "destination": "/index.html" }
+    ]
+  }
+
+  Per deployare: trascina la cartella su vercel.com/new
+  ============================================
+-->
