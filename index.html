@@ -932,18 +932,14 @@
           Raccontaci la tua attività. Ti ricontatteremo entro poche ore con una proposta concreta — senza impegno.
         </p>
 
-        <!-- FORMSUBMIT: invia direttamente a email, zero configurazione -->
+        <!-- WEB3FORMS: sostituisci YOUR_ACCESS_KEY con la chiave da web3forms.com/access -->
         <form
           class="contact-form fade-up delay-3"
-          action="https://formsubmit.co/massimilianodemiridev@proton.me"
-          method="POST"
+          id="contact-form"
         >
-          <!-- Disabilita il captcha di FormSubmit -->
-          <input type="hidden" name="_captcha" value="false" />
-          <!-- Redirect dopo l'invio (opzionale) -->
-          <input type="hidden" name="_next" value="https://vetrinasrlpro.vercel.app/#contatti" />
-          <!-- Subject email -->
-          <input type="hidden" name="_subject" value="Nuova richiesta sito — Vetrina.pro" />
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
+          <input type="hidden" name="subject" value="Nuova richiesta sito — Vetrina.pro" />
+          <input type="hidden" name="from_name" value="Vetrina.pro" />
           <input
             class="form-input"
             type="text"
@@ -1104,8 +1100,43 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    // ---- Form: nessuna intercettazione, FormSubmit gestisce il redirect ----
-    // Il form funziona nativamente via POST su formsubmit.co
+    // ---- Form: Web3Forms async submit ----
+    const form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = 'Invio in corso…';
+        btn.disabled = true;
+
+        try {
+          const data = new FormData(form);
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: data
+          });
+          const json = await res.json();
+          if (json.success) {
+            form.innerHTML = `
+              <div style="text-align:center;padding:32px 0;">
+                <div style="width:56px;height:56px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" style="width:26px;height:26px;"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <h3 style="font-family:'Instrument Serif',serif;font-size:26px;color:white;margin-bottom:10px;">Messaggio inviato.</h3>
+                <p style="color:rgba(255,255,255,0.8);font-size:15px;">Ti ricontatteremo entro poche ore con una proposta su misura.</p>
+              </div>
+            `;
+          } else {
+            throw new Error(json.message);
+          }
+        } catch (err) {
+          btn.innerHTML = originalHTML;
+          btn.disabled = false;
+          alert('Errore nell\'invio. Scrivici su WhatsApp oppure a massimilianodemiridev@proton.me');
+        }
+      });
+    }
   </script>
 
 </body>
