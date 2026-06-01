@@ -932,12 +932,18 @@
           Raccontaci la tua attività. Ti ricontatteremo entro poche ore con una proposta concreta — senza impegno.
         </p>
 
-        <!-- FORMSPREE: sostituisci YOUR_FORM_ID con il tuo ID da formspree.io -->
+        <!-- FORMSUBMIT: invia direttamente a email, zero configurazione -->
         <form
           class="contact-form fade-up delay-3"
-          action="https://formspree.io/f/YOUR_FORM_ID"
+          action="https://formsubmit.co/massimilianodemiridev@proton.me"
           method="POST"
         >
+          <!-- Disabilita il captcha di FormSubmit -->
+          <input type="hidden" name="_captcha" value="false" />
+          <!-- Redirect dopo l'invio (opzionale) -->
+          <input type="hidden" name="_next" value="https://vetrinasrlpro.vercel.app/#contatti" />
+          <!-- Subject email -->
+          <input type="hidden" name="_subject" value="Nuova richiesta sito — Vetrina.pro" />
           <input
             class="form-input"
             type="text"
@@ -1098,40 +1104,8 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    // ---- Form success feedback ----
-    const form = document.querySelector('.contact-form');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        btn.textContent = 'Invio in corso…';
-        btn.disabled = true;
-
-        try {
-          const response = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (response.ok) {
-            form.innerHTML = `
-              <div style="text-align:center;padding:32px 0;">
-                <div style="font-size:48px;margin-bottom:16px;">✅</div>
-                <h3 style="font-family:'Instrument Serif',serif;font-size:26px;color:white;margin-bottom:10px;">Ricevuto!</h3>
-                <p style="color:rgba(255,255,255,0.8);font-size:15px;">Ti ricontatteremo entro poche ore con una proposta su misura.</p>
-              </div>
-            `;
-          } else {
-            throw new Error('Errore invio');
-          }
-        } catch {
-          btn.textContent = originalText;
-          btn.disabled = false;
-          alert('Qualcosa è andato storto. Prova a scriverci direttamente su WhatsApp.');
-        }
-      });
-    }
+    // ---- Form: nessuna intercettazione, FormSubmit gestisce il redirect ----
+    // Il form funziona nativamente via POST su formsubmit.co
   </script>
 
 </body>
