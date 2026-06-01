@@ -1120,16 +1120,23 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ priceId })
           });
-          const data = await res.json();
+
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok) {
+            throw new Error(data.error || `Errore checkout (${res.status})`);
+          }
+
           if (data.url) {
             window.location.href = data.url;
           } else {
             throw new Error(data.error || 'Errore sconosciuto');
           }
         } catch (err) {
+          console.error('Checkout error:', err);
           this.innerHTML = originalHTML;
           this.disabled = false;
-          alert('Errore nel processo di pagamento. Scrivici su WhatsApp e ti assistiamo.');
+          alert(err.message || 'Errore nel processo di pagamento. Scrivici su WhatsApp e ti assistiamo.');
         }
       });
     });
