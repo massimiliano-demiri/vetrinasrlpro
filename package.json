@@ -1,0 +1,9 @@
+{
+  "name": "vetrinapro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vetrina.pro — Siti web per attività locali italiane",
+  "dependencies": {
+    "stripe": "^17.0.0"
+  }
+}

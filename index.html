@@ -835,7 +835,10 @@
             <li>2 modifiche al mese via WhatsApp</li>
             <li>Ottimizzazione SEO base</li>
           </ul>
-          <a href="#contatti" class="btn btn-outline">Inizia gratis</a>
+          <button
+            class="btn btn-outline checkout-btn"
+            data-price="price_1TdSzKE9gcEDgyKRhYvkjDWN"
+          >Abbonati ora</button>
         </div>
 
         <!-- Pro -->
@@ -852,7 +855,10 @@
             <li>Analytics e report mensile</li>
             <li>Supporto prioritario entro 4 ore</li>
           </ul>
-          <a href="#contatti" class="btn btn-primary">Inizia gratis</a>
+          <button
+            class="btn btn-primary checkout-btn"
+            data-price="price_1TdT0NE9gcEDgyKR2H9AEoig"
+          >Abbonati ora</button>
         </div>
       </div>
     </div>
@@ -1098,6 +1104,34 @@
     // Close modal on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // ---- Stripe Checkout ----
+    document.querySelectorAll('.checkout-btn').forEach(btn => {
+      btn.addEventListener('click', async function () {
+        const priceId = this.dataset.price;
+        const originalHTML = this.innerHTML;
+        this.innerHTML = 'Reindirizzamento...';
+        this.disabled = true;
+
+        try {
+          const res = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ priceId })
+          });
+          const data = await res.json();
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            throw new Error(data.error || 'Errore sconosciuto');
+          }
+        } catch (err) {
+          this.innerHTML = originalHTML;
+          this.disabled = false;
+          alert('Errore nel processo di pagamento. Scrivici su WhatsApp e ti assistiamo.');
+        }
+      });
     });
 
     // ---- Form: Web3Forms async submit ----

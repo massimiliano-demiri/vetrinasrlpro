@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grazie — Vetrina.pro</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #FFFFFF;
+      --black: #0A0A0A;
+      --blue: #2563EB;
+      --blue-dark: #1d4ed8;
+      --blue-light: #EFF6FF;
+      --gray: #F8F8F8;
+      --gray-mid: #E5E7EB;
+      --text-muted: #6B7280;
+      --radius: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar minimal */
+    nav {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-mid);
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: var(--black);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .logo-svg { width: 32px; height: 32px; }
+
+    /* Main content */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+    .success-card {
+      text-align: center;
+      max-width: 540px;
+      width: 100%;
+    }
+
+    /* Animated checkmark */
+    .check-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 32px;
+      animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+    .check-circle svg {
+      width: 36px; height: 36px;
+      stroke: white; stroke-width: 2.5; fill: none;
+      stroke-dasharray: 40;
+      stroke-dashoffset: 40;
+      animation: draw 0.4s 0.3s ease forwards;
+    }
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #F0FDF4; color: #16A34A;
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 5px 14px;
+      border-radius: 999px; margin-bottom: 20px;
+    }
+    .badge::before { content: "●"; font-size: 7px; }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    h1 em { font-style: italic; color: var(--blue); }
+
+    .subtitle {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    /* Steps */
+    .next-steps {
+      background: var(--gray);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: left;
+      margin-bottom: 36px;
+    }
+    .next-steps h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 20px;
+    }
+    .step-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-mid);
+    }
+    .step-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .step-text strong { display: block; font-size: 14px; margin-bottom: 2px; }
+    .step-text span { font-size: 13px; color: var(--text-muted); }
+
+    .cta-group {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: var(--radius);
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; border: 2px solid transparent;
+      text-decoration: none;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
+    .btn-outline { background: transparent; color: var(--black); border-color: var(--gray-mid); }
+    .btn-outline:hover { border-color: var(--black); transform: translateY(-1px); }
+
+    /* WhatsApp button */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(37,211,102,0.5);
+      text-decoration: none;
+      transition: transform 300ms, box-shadow 300ms;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,0.7); }
+    .whatsapp-float svg { width: 30px; height: 30px; }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .cta-group { flex-direction: column; }
+      .cta-group .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">
+      <svg class="logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="10" fill="#0A0A0A"/>
+        <rect x="7" y="8" width="22" height="16" rx="3" stroke="white" stroke-width="1.8" fill="none"/>
+        <line x1="7" y1="13" x2="29" y2="13" stroke="white" stroke-width="1.8"/>
+        <circle cx="9.5" cy="10.5" r="1" fill="#FC605B"/>
+        <circle cx="13" cy="10.5" r="1" fill="#FDBC40"/>
+        <circle cx="16.5" cy="10.5" r="1" fill="#34C749"/>
+        <path d="M18 16.5 L18.6 18.2 L20.4 18.2 L19 19.2 L19.5 21 L18 20 L16.5 21 L17 19.2 L15.6 18.2 L17.4 18.2 Z" fill="#2563EB"/>
+        <circle cx="18" cy="28" r="2.2" fill="#2563EB"/>
+      </svg>
+      Vetrina<span style="color:#2563EB">.</span>pro
+    </a>
+  </nav>
+
+  <main>
+    <div class="success-card">
+
+      <div class="check-circle">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+
+      <div class="badge">Abbonamento attivo</div>
+
+      <h1>Benvenuto in<br><em>Vetrina.pro</em></h1>
+      <p class="subtitle">
+        Il tuo abbonamento è attivo. Riceverai una email di conferma a breve.<br>
+        Ecco cosa succede adesso:
+      </p>
+
+      <div class="next-steps">
+        <h2>Prossimi passi</h2>
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Email di benvenuto</strong>
+            <span>Riceverai i dettagli del tuo piano e i contatti del tuo referente.</span>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Raccolta informazioni</strong>
+            <span>Ti contatteremo via WhatsApp per raccogliere logo, foto e testi.</span>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Sito online entro 24 ore</strong>
+            <span>Costruiamo il tuo sito e lo pubblichiamo. Riceverai il link per approvare.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <a href="https://wa.me/393290122917" target="_blank" rel="noopener" class="btn btn-primary">
+          Scrivici su WhatsApp
+        </a>
+        <a href="/" class="btn btn-outline">
+          Torna alla home
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- WhatsApp floating -->
+  <a href="https://wa.me/393290122917" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="WhatsApp">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4C12.954 4 4 12.954 4 24c0 3.552.934 6.888 2.573 9.773L4 44l10.515-2.527A19.908 19.908 0 0024 44c11.046 0 20-8.954 20-20S35.046 4 24 4zm0 3.636c9.037 0 16.364 7.327 16.364 16.364 0 9.037-7.327 16.364-16.364 16.364a16.32 16.32 0 01-8.327-2.272l-.597-.364-6.236 1.498 1.54-5.934-.397-.618A16.316 16.316 0 017.636 24C7.636 14.963 14.963 7.636 24 7.636zm-4.69 8.21c-.358-.001-.742.003-1.073.157-.358.162-.61.417-.866.68-.51.528-1.308 1.63-1.308 3.862 0 2.244 1.289 4.41 1.465 4.714.176.303 2.498 4.04 6.148 5.5 3.648 1.46 3.648.974 4.305.914.656-.061 2.116-.866 2.414-1.703.299-.838.299-1.556.21-1.705-.09-.148-.33-.238-.69-.417-.358-.179-2.116-1.044-2.444-1.163-.328-.12-.567-.18-.806.18-.24.358-.926 1.163-1.134 1.402-.208.238-.417.268-.775.09-.358-.18-1.513-.557-2.882-1.778-1.065-.95-1.784-2.12-1.993-2.478-.208-.358-.022-.551.156-.729.16-.16.358-.417.537-.626.178-.208.238-.358.358-.597.119-.238.06-.448-.03-.627-.09-.178-.806-1.94-1.104-2.657-.266-.654-.54-.663-.806-.672z" fill="white"/>
+    </svg>
+  </a>
+
+  <footer>
+    © 2026 Vetrina.pro · Strada Santa Filomena 1, Terni · massimilianodemiridev@proton.me
+  </footer>
+
+</body>
+</html>

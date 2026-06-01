@@ -1,0 +1,52 @@
+const Stripe = require('stripe');
+
+// Price IDs validi — whitelist di sicurezza
+const ALLOWED_PRICES = {
+  'price_1TdSzKE9gcEDgyKRhYvkjDWN': 'subscription', // Piano Base 15€/mese
+  'price_1TdSzKE9gcEDgyKRArVXNulj': 'subscription', // Piano Base 9€/mese
+  'price_1TdT0NE9gcEDgyKR2H9AEoig': 'subscription', // Piano Pro 29€/mese
+  'price_1TdT0qE9gcEDgyKROzM2L5bp': 'subscription', // Piano Pro 49€
+};
+
+module.exports = async function handler(req, res) {
+  // CORS
+  const origin = process.env.SITE_URL || 'https://vetrinasrlpro.vercel.app';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  const { priceId } = req.body;
+
+  // Validazione input — sicurezza OWASP A03
+  if (!priceId || typeof priceId !== 'string' || !ALLOWED_PRICES[priceId]) {
+    return res.status(400).json({ error: 'Prezzo non valido.' });
+  }
+
+  try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2024-06-20',
+    });
+
+    const siteUrl = process.env.SITE_URL || 'https://vetrinasrlpro.vercel.app';
+
+    const session = await stripe.checkout.sessions.create({
+      mode: ALLOWED_PRICES[priceId],
+      payment_method_types: ['card'],
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${siteUrl}/grazie?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}/#prezzi`,
+      locale: 'it',
+      subscription_data: {
+        trial_period_days: 0,
+      },
+    });
+
+    return res.status(200).json({ url: session.url });
+  } catch (err) {
+    console.error('Stripe error:', err.message);
+    return res.status(500).json({ error: 'Errore durante la creazione del pagamento.' });
+  }
+};
